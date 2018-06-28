@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,7 +20,12 @@ import com.afollestad.easyvideoplayer.EasyVideoCallback;
 import com.afollestad.easyvideoplayer.EasyVideoPlayer;
 import com.example.videoplayerwithteams.R;
 import com.example.videoplayerwithteams.adapters.TeamPlayerCarouselRecyclerViewAdapter;
+import com.example.videoplayerwithteams.application.ApplicationData;
 import com.example.videoplayerwithteams.constants.Constants;
+import com.example.videoplayerwithteams.interfaces.ServiceResponseChecker;
+import com.example.videoplayerwithteams.models.TeamPlayerResponseModel;
+import com.example.videoplayerwithteams.retrofit.CallingWebServices;
+import com.example.videoplayerwithteams.utility.Utils;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
@@ -30,7 +38,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
 {
     private String URL = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
-    ArrayList<String> imagesUrls = new ArrayList<>();
     
     @BindView(R.id.easyVideoPlayer)
     EasyVideoPlayer easyVideoPlayer;
@@ -59,7 +66,6 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.llCarousel)
     LinearLayout llCarousel;
     
-    private int mediaPlayerLeftPosition = 0;
     private int mediaPlayerSelectedPosition = 0;
     private boolean isHomeSelected = false;
     private boolean isAwaySelected = false;
@@ -74,6 +80,7 @@ public class MainActivity extends AppCompatActivity
         initializeVideoPlayer();
         initializeCarouselImages();
         initializingButtons();
+        llCarousel.startAnimation(inFromRightAnimation());
     }
     
     protected void selectView(LinearLayout layout, TextView text, ImageView icon)
@@ -94,14 +101,27 @@ public class MainActivity extends AppCompatActivity
     protected void onPause()
     {
         super.onPause();
-        mediaPlayerLeftPosition = easyVideoPlayer.getCurrentPosition();
+        mediaPlayerSelectedPosition = easyVideoPlayer.getCurrentPosition();
     }
     
     @Override
     protected void onResume()
     {
         super.onResume();
-        easyVideoPlayer.seekTo(mediaPlayerLeftPosition);
+        easyVideoPlayer.seekTo(mediaPlayerSelectedPosition);
+    }
+    
+    private Animation inFromRightAnimation()
+    {
+        
+        Animation inFromRight = new TranslateAnimation(
+                Animation.RELATIVE_TO_PARENT, +1.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f);
+        inFromRight.setDuration(1200);
+        inFromRight.setInterpolator(new AccelerateInterpolator());
+        return inFromRight;
     }
     
     private void initializeVideoPlayer()
@@ -209,12 +229,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
         
-        for (int index = 0; index < 7; index++)
-        {
-            imagesUrls.add("https://picsum.photos/" + (new Random().nextInt(500) + 1) + "/" + (new Random().nextInt(500) + 1));
-        }
-        
-        rvTeamPlayers.setAdapter(new TeamPlayerCarouselRecyclerViewAdapter(imagesUrls, MainActivity.this));
     }
     
     private void initializingButtons()
@@ -224,11 +238,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                if(!isHomeSelected)
+                if (!isHomeSelected)
                 {
                     isHomeSelected = true;
+                    isAwaySelected = false;
                     selectView(llHome, tvHome, ivHome);
                     unSelectView(llAway, tvAway, ivAway);
+                    getTeamPlayers();
                 }
             }
         });
@@ -238,13 +254,62 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                if(!isAwaySelected)
+                if (!isAwaySelected)
                 {
                     isAwaySelected = true;
+                    isHomeSelected = false;
                     unSelectView(llHome, tvHome, ivHome);
                     selectView(llAway, tvAway, ivAway);
+                    getTeamPlayers();
                 }
             }
         });
+    }
+    
+    private void getTeamPlayers()
+    {
+        if(ApplicationData.getInstance().getTeamPlayerResponseModel() == null)
+        {
+            Utils.showProgressDialog(MainActivity.this);
+            CallingWebServices.getInstance().getTeamPlayers(new ServiceResponseChecker()
+            {
+                @Override
+                public void onSuccess(Object object)
+                {
+                    Utils.hideProgressDialog();
+                    TeamPlayerResponseModel teamPlayerResponseModel = (TeamPlayerResponseModel) object;
+                    ApplicationData.getInstance().setTeamPlayerResponseModel(teamPlayerResponseModel);
+                    setTeamsAccordingly();
+                }
+    
+                @Override
+                public void onFail(Object object)
+                {
+                    Utils.hideProgressDialog();
+                }
+    
+                @Override
+                public void onError(Object object)
+                {
+                    Utils.hideProgressDialog();
+                }
+            });
+        }
+        else
+        {
+            setTeamsAccordingly();
+        }
+    }
+    
+    private void setTeamsAccordingly()
+    {
+        if(isHomeSelected)
+        {
+            rvTeamPlayers.setAdapter(new TeamPlayerCarouselRecyclerViewAdapter(ApplicationData.getInstance().getTeamPlayerResponseModel().getLineups().getData().getHomeTeam().getPlayers(), MainActivity.this));
+        }
+        else if(isAwaySelected)
+        {
+            rvTeamPlayers.setAdapter(new TeamPlayerCarouselRecyclerViewAdapter(ApplicationData.getInstance().getTeamPlayerResponseModel().getLineups().getData().getAwayTeam().getPlayers(), MainActivity.this));
+        }
     }
 }

@@ -39,7 +39,7 @@
                     android:id="@+id/ivAway"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_home"/>
+                    android:src="@drawable/ic_away"/>
 
                 <com.example.videoplayerwithteams.customeviews.VerdanaTextView
                     android:id="@+id/tvAway"
@@ -62,7 +62,7 @@
                     android:id="@+id/ivHome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_away"/>
+                    android:src="@drawable/ic_home"/>
 
                 <com.example.videoplayerwithteams.customeviews.VerdanaTextView
                     android:id="@+id/tvHome"

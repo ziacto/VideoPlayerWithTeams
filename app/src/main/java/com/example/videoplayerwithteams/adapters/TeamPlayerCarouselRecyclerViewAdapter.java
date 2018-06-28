@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.videoplayerwithteams.R;
+import com.example.videoplayerwithteams.models.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ZeeZee on 11/4/2017.
@@ -17,12 +19,12 @@ import java.util.ArrayList;
 
 public class TeamPlayerCarouselRecyclerViewAdapter extends RecyclerView.Adapter<TeamPlayerCarouselRecyclerViewAdapter.FavouriteViewHolder>
 {
-    ArrayList<String> imagesUrls;
+    List<Player> players;
     Context context;
     
-    public TeamPlayerCarouselRecyclerViewAdapter(ArrayList<String> imagesUrls, Context context)
+    public TeamPlayerCarouselRecyclerViewAdapter(List<Player> players, Context context)
     {
-        this.imagesUrls = imagesUrls;
+        this.players = players;
         this.context = context;
     }
     
@@ -42,7 +44,7 @@ public class TeamPlayerCarouselRecyclerViewAdapter extends RecyclerView.Adapter<
     @Override
     public int getItemCount()
     {
-        return imagesUrls.size();
+        return players.size();
     }
     
     public class FavouriteViewHolder extends RecyclerView.ViewHolder
@@ -57,7 +59,7 @@ public class TeamPlayerCarouselRecyclerViewAdapter extends RecyclerView.Adapter<
         
         public void bindView(int position)
         {
-            tvPlayerName.setText(imagesUrls.get(position));
+            tvPlayerName.setText(players.get(position).getName() + " (" + players.get(position).getRole() + ")");
         }
     }
 }
