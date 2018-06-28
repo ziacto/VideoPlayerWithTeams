@@ -120,12 +120,12 @@ public class MainActivity extends AppCompatActivity
         
         if (diagonalInches >= 7)
         {
-            isTablet = false;
+            isTablet = true;
             initializeCarouselsForTablets();
         }
         else
         {
-            isTablet = true;
+            isTablet = false;
             initializeCarouselForPhone();
             initializingCarouselButtonsForPhones();
             llCarousel.setVisibility(View.GONE);
@@ -597,9 +597,8 @@ public class MainActivity extends AppCompatActivity
     private void setTeamsAccordinglyForTablets()
     {
         rvTeamPlayersHome.setAdapter(new TeamPlayerCarouselRecyclerViewAdapter(ApplicationData.getInstance().getTeamPlayerResponseModel().getLineups().getData().getHomeTeam().getPlayers(), MainActivity.this));
-       /* rvTeamPlayersAway.setAdapter(new TeamPlayerCarouselRecyclerViewAdapter(ApplicationData.getInstance().getTeamPlayerResponseModel().getLineups().getData().getAwayTeam().getPlayers(), MainActivity.this));
+        rvTeamPlayersAway.setAdapter(new TeamPlayerCarouselRecyclerViewAdapter(ApplicationData.getInstance().getTeamPlayerResponseModel().getLineups().getData().getAwayTeam().getPlayers(), MainActivity.this));
         rvTeamPlayersHome.scrollToPosition(ApplicationData.getInstance().getTeamPlayerResponseModel().getLineups().getData().getAwayTeam().getPlayers().size() - 1);
-    */
     }
     
 }
