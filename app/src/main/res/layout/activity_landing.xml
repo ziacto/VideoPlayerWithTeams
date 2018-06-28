@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:padding="@dimen/fifteen_dp"
+    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/light_gray"
+    tools:context="com.example.videoplayerwithteams.activities.LandingActivity">
+
+    <com.example.videoplayerwithteams.customeviews.VerdanaBoldTextView
+        android:text="@string/landing_activity_label"
+        android:textSize="@dimen/sp_sixteen"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <SeekBar
+        android:layout_marginTop="@dimen/fifteen_dp"
+        android:id="@+id/seekBarPlayVideoFrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_marginLeft="@dimen/fifteen_dp"
+        android:layout_marginRight="@dimen/fifteen_dp"
+        android:layout_marginTop="@dimen/fifteen_dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.example.videoplayerwithteams.customeviews.VerdanaBoldTextView
+        android:text="@string/milliseconds"
+        android:textSize="@dimen/sp_forteen"
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+        <com.example.videoplayerwithteams.customeviews.VerdanaBoldTextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/tvMilliSeconds"
+            android:text="0"
+            android:textSize="@dimen/sp_forteen"
+            android:textAlignment="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:textColor="@color/white"
+        android:background="@color/colorAccent"
+        android:layout_marginTop="@dimen/fifteen_dp"
+        android:text="@string/proceed"
+        android:id="@+id/btnPlayVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+</LinearLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">20dp</dimen>
+    <dimen name="activity_vertical_margin">30dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="item_offset">10dp</dimen>
+    <dimen name="detail_backdrop_height">250dp</dimen>
+    <dimen name="backdrop_title">30dp</dimen>
+    <dimen name="backdrop_subtitle">18dp</dimen>
+    <dimen name="card_margin">5dp</dimen>
+    <dimen name="card_album_radius">0dp</dimen>
+    <dimen name="album_cover_height">160dp</dimen>
+    <dimen name="album_title_padding">10dp</dimen>
+    <dimen name="album_title">15dp</dimen>
+    <dimen name="songs_count_padding_bottom">5dp</dimen>
+    <dimen name="songs_count">12dp</dimen>
+    <dimen name="ic_album_overflow_width">20dp</dimen>
+    <dimen name="ic_album_overflow_height">30dp</dimen>
+    <dimen name="ic_album_overflow_margin_top">10dp</dimen>
+    <dimen name="ten_sp">15sp</dimen>
+    <dimen name="sp_sixteen">24sp</dimen>
+    <dimen name="onefifty_dp">225dp</dimen>
+    <dimen name="sp_twenty">30sp</dimen>
+    <dimen name="sp_forteen" >21sp</dimen>
+    <dimen name="fifteen_dp">22.5dp</dimen>
+    <dimen name="thirty_dp">45dp</dimen>
+    <dimen name="seventy_dp">105dp</dimen>
+    <dimen name="fifty5_dp">82.5dp</dimen>
+    <dimen name="fifty_dp">75dp</dimen>
+    <dimen name="five_dp">7.5dp</dimen>
+    <dimen name="seven_dp">7dp</dimen>
+    <dimen name="round_button_width">225dp</dimen>
+    <dimen name="twenty_dp">30dp</dimen>
+    <dimen name="twenty5_dp">42.5dp</dimen>
+    <dimen name="ten_dp">15dp</dimen>
+    <dimen name="tw0hundred_dp">350dp</dimen>
+    <dimen name="hundred_dp">150dp</dimen>
+    <dimen name="eight_dp">12dp</dimen>
+    <dimen name="forty_dp">60dp</dimen>
+    <dimen name="sixty_dp">90dp</dimen>
+    <dimen name="sixty5_dp">97.5dp</dimen>
+
+    <dimen name="oneseventy_dp">255dp</dimen>
+    <dimen name="three_dp">4.5dp</dimen>
+    <dimen name="sp_fifteen">22.5sp</dimen>
+    <dimen name="sp_thirty">45sp</dimen>
+    <dimen name="twofifty_dp">375dp</dimen>
+    <dimen name="sp_twelve">18sp</dimen>
+    <dimen name="sp_eighteen">27sp</dimen>
+    <dimen name="threefifty_dp">525dp</dimen>
+    <dimen name="threehundred_dp">450dp</dimen>
+    <dimen name="onesixty_dp">240dp</dimen>
+
+    <dimen name="eighty_dp">120dp</dimen>
+    <dimen name="sp_thirteen">19.5sp</dimen>
+
+    <dimen name="onethirty_dp">195dp</dimen>
+
+    <dimen name="fourhundred_dp">600dp</dimen>
+    <dimen name="sp_twenty5">37.5sp</dimen>
+    <dimen name="thirteen_dp">19.5dp</dimen>
+    <dimen name="onetwenty_dp">120dp</dimen>
+    <dimen name="oneTwenty_dp">180dp</dimen>
+    <dimen name="left_menu_width">390dp</dimen>
+    <dimen name="twelve_dp">18dp</dimen>
+</resources>
