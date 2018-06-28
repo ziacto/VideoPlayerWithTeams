@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+
+                android:paddingLeft="@dimen/fifteen_dp"
+                android:paddingRight="@dimen/fifteen_dp"
+    >
+
+    <ImageView
+        android:id="@+id/ivTogglePlayerItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_open_player_items"/>
+
+    <com.example.videoplayerwithteams.customeviews.VerdanaTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/twenty_dp"
+        android:text="RECO"
+        android:textColor="#fff"
+        android:textSize="@dimen/sp_sixteen"/>
+
+    <ImageView
+        android:id="@+id/ivToggleFullScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_close_full_screen"/>
+
+</RelativeLayout>

@@ -5,31 +5,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     tools:context=".activities.MainActivity">
+
+    <com.example.videoplayerwithteams.customeviews.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <com.afollestad.easyvideoplayer.EasyVideoPlayer
         android:id="@+id/easyVideoPlayer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"/>
 
     <LinearLayout
         android:id="@+id/llCarousel"
-        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_alignParentRight="true"
                 android:id="@+id/llAway"
                 android:layout_width="@dimen/hundred_dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:background="@drawable/rounded_rectangle_white"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -75,17 +82,60 @@
         </RelativeLayout>
 
         <com.yarolegovich.discretescrollview.DiscreteScrollView
-            android:layout_marginTop="@dimen/ten_dp"
             android:id="@+id/rvTeamPlayers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten_dp"/>
 
         <SurfaceView
-            android:visibility="gone"
-            android:layout_marginTop="@dimen/ten_dp"
             android:id="@+id/surfaceView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llCarouselsForTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:orientation="vertical">
+
+        <com.example.videoplayerwithteams.customeviews.VerdanaTextView
+            android:id="@+id/tvAwayForTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Away"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_sixteen"/>
+
+        <com.yarolegovich.discretescrollview.DiscreteScrollView
+            android:id="@+id/rvTeamPlayersAway"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten_dp"/>
+
+
+        <com.example.videoplayerwithteams.customeviews.VerdanaTextView
+            android:id="@+id/tvHomeForTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/twenty_dp"
+            android:text="Home"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_sixteen"/>
+
+        <com.yarolegovich.discretescrollview.DiscreteScrollView
+            android:id="@+id/rvTeamPlayersHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten_dp"/>
+
 
     </LinearLayout>
 
