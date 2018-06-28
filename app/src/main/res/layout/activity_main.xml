@@ -75,10 +75,17 @@
         </RelativeLayout>
 
         <com.yarolegovich.discretescrollview.DiscreteScrollView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/ten_dp"
             android:id="@+id/rvTeamPlayers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <SurfaceView
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:id="@+id/surfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

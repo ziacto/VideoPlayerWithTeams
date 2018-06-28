@@ -1,12 +1,19 @@
 package com.example.videoplayerwithteams.activities;
 
 import android.app.Activity;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -14,10 +21,12 @@ import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
 
 import com.afollestad.easyvideoplayer.EasyVideoCallback;
 import com.afollestad.easyvideoplayer.EasyVideoPlayer;
+import com.afollestad.easyvideoplayer.EasyVideoProgressCallback;
 import com.example.videoplayerwithteams.R;
 import com.example.videoplayerwithteams.adapters.TeamPlayerCarouselRecyclerViewAdapter;
 import com.example.videoplayerwithteams.application.ApplicationData;
@@ -37,7 +46,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
 {
-    private String URL = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+    private String URL = "http://intigralvod1-vh.akamaihd.net/i/3rdparty/Season2017_2018/10_12_2017_Hilal_fath/Highlights/high_,256,512,768,1200,.mp4.csmil/master.m3u8";
     
     @BindView(R.id.easyVideoPlayer)
     EasyVideoPlayer easyVideoPlayer;
@@ -66,9 +75,20 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.llCarousel)
     LinearLayout llCarousel;
     
+    @BindView(R.id.surfaceView)
+    SurfaceView surfaceView;
+    
+    private SurfaceHolder vidHolder;
+    private MediaController mediaController;
+    private Handler handler = new Handler();
+    private DisplayMetrics displayMetrics;
+    MediaPlayer mediaPlayer;
+    
     private int mediaPlayerSelectedPosition = 0;
     private boolean isHomeSelected = false;
     private boolean isAwaySelected = false;
+    private boolean isSeekStarted = false;
+    
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,7 +96,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mediaPlayerSelectedPosition = getIntent().getExtras().getInt(Constants.VIDEO_SEEK_TIME_KEY);
+        mediaPlayerSelectedPosition = getIntent().getExtras().getInt(Constants.VIDEO_SEEK_TIME_KEY) * 1000;
         initializeVideoPlayer();
         initializeCarouselImages();
         initializingButtons();
@@ -108,7 +128,8 @@ public class MainActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        easyVideoPlayer.seekTo(mediaPlayerSelectedPosition);
+        if (easyVideoPlayer.isPlaying())
+            easyVideoPlayer.seekTo(mediaPlayerSelectedPosition);
     }
     
     private Animation inFromRightAnimation()
@@ -128,18 +149,34 @@ public class MainActivity extends AppCompatActivity
     {
         easyVideoPlayer = (EasyVideoPlayer) findViewById(R.id.easyVideoPlayer);
         easyVideoPlayer.setSource(Uri.parse(URL));
-        easyVideoPlayer.start();
         easyVideoPlayer.setAutoPlay(true);
         easyVideoPlayer.setLoop(true);
         easyVideoPlayer.hideControls();
         easyVideoPlayer.disableControls();
-        easyVideoPlayer.seekTo(mediaPlayerSelectedPosition);
+        easyVideoPlayer.setProgressCallback(new EasyVideoProgressCallback()
+        {
+            @Override
+            public void onVideoProgressUpdate(int position, int duration)
+            {
+        
+            }
+        });
         easyVideoPlayer.setCallback(new EasyVideoCallback()
         {
             @Override
-            public void onStarted(EasyVideoPlayer player)
+            public void onStarted(final EasyVideoPlayer player)
             {
-                
+                //seekStart();
+                //player.start();
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        easyVideoPlayer.seekTo(mediaPlayerSelectedPosition);
+                        isSeekStarted = true;
+                    }
+                }, 500);
             }
             
             @Override
@@ -155,9 +192,11 @@ public class MainActivity extends AppCompatActivity
             }
             
             @Override
-            public void onPrepared(EasyVideoPlayer player)
+            public void onPrepared(final EasyVideoPlayer player)
             {
                 player.setVolume(0f, 0f);
+               
+                //player.start();
             }
             
             @Override
@@ -190,6 +229,27 @@ public class MainActivity extends AppCompatActivity
                 
             }
         });
+        //seekStart();
+    }
+    
+    private void seekStart()
+    {
+        while(!isSeekStarted)
+        {
+            if(easyVideoPlayer.isPlaying())
+            {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        easyVideoPlayer.seekTo(mediaPlayerSelectedPosition);
+                        isSeekStarted = true;
+                    }
+                }, 500);
+               
+            }
+        }
     }
     
     private void initializeCarouselImages()
@@ -268,7 +328,7 @@ public class MainActivity extends AppCompatActivity
     
     private void getTeamPlayers()
     {
-        if(ApplicationData.getInstance().getTeamPlayerResponseModel() == null)
+        if (ApplicationData.getInstance().getTeamPlayerResponseModel() == null)
         {
             Utils.showProgressDialog(MainActivity.this);
             CallingWebServices.getInstance().getTeamPlayers(new ServiceResponseChecker()
@@ -281,13 +341,13 @@ public class MainActivity extends AppCompatActivity
                     ApplicationData.getInstance().setTeamPlayerResponseModel(teamPlayerResponseModel);
                     setTeamsAccordingly();
                 }
-    
+                
                 @Override
                 public void onFail(Object object)
                 {
                     Utils.hideProgressDialog();
                 }
-    
+                
                 @Override
                 public void onError(Object object)
                 {
@@ -303,13 +363,14 @@ public class MainActivity extends AppCompatActivity
     
     private void setTeamsAccordingly()
     {
-        if(isHomeSelected)
+        if (isHomeSelected)
         {
             rvTeamPlayers.setAdapter(new TeamPlayerCarouselRecyclerViewAdapter(ApplicationData.getInstance().getTeamPlayerResponseModel().getLineups().getData().getHomeTeam().getPlayers(), MainActivity.this));
         }
-        else if(isAwaySelected)
+        else if (isAwaySelected)
         {
             rvTeamPlayers.setAdapter(new TeamPlayerCarouselRecyclerViewAdapter(ApplicationData.getInstance().getTeamPlayerResponseModel().getLineups().getData().getAwayTeam().getPlayers(), MainActivity.this));
         }
     }
+    
 }
