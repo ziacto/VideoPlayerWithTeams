@@ -32,5 +32,12 @@ dependencies {
     //butter-knife library compilation - library for binding views
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    //retrofit - library for parsing JSON
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.google.code.gson:gson:2.3'
+
     testCompile 'junit:junit:4.12'
 }

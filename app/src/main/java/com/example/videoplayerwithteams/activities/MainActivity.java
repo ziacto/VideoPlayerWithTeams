@@ -7,7 +7,7 @@ import com.example.videoplayerwithteams.R;
 
 public class MainActivity extends AppCompatActivity
 {
-    
+    int videoSeekTime = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
