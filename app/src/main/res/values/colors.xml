@@ -8,4 +8,10 @@
     <color name="white">#ffffff</color>
     <color name="light_gray">#cecece</color>
 
+    <color name="white_transparent">#b4ffffff</color>
+    <color name="orange_transparent">#b4fcb040</color>
+    <color name="orange_light_transparent">#b4faf1e3</color>
+    <color name="selected_button_text_color">#9d2a37</color>
+    <color name="tab_unselected_color">#686868</color>
+
 </resources>
