@@ -100,7 +100,8 @@
         android:id="@+id/llCarouselsForTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="@dimen/fifteen_dp"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
         android:orientation="vertical">
@@ -131,6 +132,7 @@
             android:textSize="@dimen/sp_sixteen"/>
 
         <com.yarolegovich.discretescrollview.DiscreteScrollView
+            android:visibility="gone"
             android:id="@+id/rvTeamPlayersHome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

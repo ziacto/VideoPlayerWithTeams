@@ -3,7 +3,7 @@ package com.example.videoplayerwithteams.application;
 import com.example.videoplayerwithteams.models.TeamPlayerResponseModel;
 
 /**
- * Created by ZeeZee on 6/28/2018.
+ * Created by muhammadzia on 6/28/2018.
  */
 
 public class ApplicationData

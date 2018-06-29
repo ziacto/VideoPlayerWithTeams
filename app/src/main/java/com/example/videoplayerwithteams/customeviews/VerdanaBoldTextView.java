@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
 /**
- * Created by ZeeZee on 5/22/2017.
+ * Created by muhammadzia on 5/22/2017.
  */
 
 public class VerdanaBoldTextView extends android.support.v7.widget.AppCompatTextView

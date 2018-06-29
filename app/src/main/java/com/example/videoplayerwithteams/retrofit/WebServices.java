@@ -6,7 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**
- * Created by khalidz on 1/30/2018.
+ * Created by muhammadzia on 1/30/2018.
  */
 
 public interface WebServices

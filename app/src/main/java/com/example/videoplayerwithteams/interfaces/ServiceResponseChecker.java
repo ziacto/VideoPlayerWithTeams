@@ -1,7 +1,7 @@
 package com.example.videoplayerwithteams.interfaces;
 
 /**
- * Created by ZeeZee on 11/16/2017.
+ * Created by muhammadzia on 11/16/2017.
  */
 
 public interface ServiceResponseChecker

@@ -43,7 +43,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
 {
-    private String URL = "http://intigralvod1-vh.akamaihd.net/i/3rdparty/Season2017_2018/10_12_2017_Hilal_fath/Highlights/high_,256,512,768,1200,.mp4.csmil/master.m3u8";
     
     @BindView(R.id.easyVideoPlayer)
     EasyVideoPlayer easyVideoPlayer;
@@ -120,12 +119,12 @@ public class MainActivity extends AppCompatActivity
         
         if (diagonalInches >= 7)
         {
-            isTablet = true;
+            isTablet = false;
             initializeCarouselsForTablets();
         }
         else
         {
-            isTablet = false;
+            isTablet = true;
             initializeCarouselForPhone();
             initializingCarouselButtonsForPhones();
             llCarousel.setVisibility(View.GONE);
@@ -224,6 +223,7 @@ public class MainActivity extends AppCompatActivity
     protected void onPause()
     {
         super.onPause();
+        //storig the state/position of video when activity pauses
         mediaPlayerSelectedPosition = easyVideoPlayer.getCurrentPosition();
     }
     
@@ -231,13 +231,14 @@ public class MainActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
+        //applying the stored state/position of video
         if (easyVideoPlayer.isPlaying())
             easyVideoPlayer.seekTo(mediaPlayerSelectedPosition);
     }
     
     private Animation inFromRightAnimation()
     {
-        
+        /*animation to show the carousel*/
         Animation inFromRight = new TranslateAnimation(
                 Animation.RELATIVE_TO_PARENT, +1.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
@@ -251,21 +252,22 @@ public class MainActivity extends AppCompatActivity
     
     private Animation outToLeftAnimation()
     {
-        Animation outtoLeft = new TranslateAnimation(
+        /*animation to hide the carousel*/
+        Animation outToLeft = new TranslateAnimation(
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, -1.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f);
-        outtoLeft.setFillAfter(true);
-        outtoLeft.setDuration(1200);
-        outtoLeft.setInterpolator(new AccelerateInterpolator());
-        return outtoLeft;
+        outToLeft.setFillAfter(true);
+        outToLeft.setDuration(1200);
+        outToLeft.setInterpolator(new AccelerateInterpolator());
+        return outToLeft;
     }
     
     private void initializeVideoPlayer()
     {
         easyVideoPlayer = (EasyVideoPlayer) findViewById(R.id.easyVideoPlayer);
-        easyVideoPlayer.setSource(Uri.parse(URL));
+        easyVideoPlayer.setSource(Uri.parse(Constants.VIDEO_URL));
         easyVideoPlayer.setAutoPlay(true);
         easyVideoPlayer.setLoop(true);
         easyVideoPlayer.hideControls();
@@ -372,6 +374,7 @@ public class MainActivity extends AppCompatActivity
     private void initializeCarouselForPhone()
     {
         rvTeamPlayers = (DiscreteScrollView) findViewById(R.id.rvTeamPlayers);
+        //setting three views to display on the screen
         rvTeamPlayers.setOffscreenItems(3);
         rvTeamPlayers.setItemTransformer(new ScaleTransformer.Builder().setMinScale(0.7f).build());
         

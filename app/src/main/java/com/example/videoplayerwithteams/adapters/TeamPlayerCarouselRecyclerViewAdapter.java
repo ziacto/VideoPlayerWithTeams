@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ZeeZee on 11/4/2017.
+ * Created by muhammadzia on 11/4/2017.
  */
 
 public class TeamPlayerCarouselRecyclerViewAdapter extends RecyclerView.Adapter<TeamPlayerCarouselRecyclerViewAdapter.FavouriteViewHolder>
