@@ -132,7 +132,6 @@
             android:textSize="@dimen/sp_sixteen"/>
 
         <com.yarolegovich.discretescrollview.DiscreteScrollView
-            android:visibility="gone"
             android:id="@+id/rvTeamPlayersHome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
