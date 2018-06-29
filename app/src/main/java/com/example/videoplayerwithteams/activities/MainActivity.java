@@ -119,12 +119,12 @@ public class MainActivity extends AppCompatActivity
         
         if (diagonalInches >= 7)
         {
-            isTablet = false;
+            isTablet = true;
             initializeCarouselsForTablets();
         }
         else
         {
-            isTablet = true;
+            isTablet = false;
             initializeCarouselForPhone();
             initializingCarouselButtonsForPhones();
             llCarousel.setVisibility(View.GONE);
