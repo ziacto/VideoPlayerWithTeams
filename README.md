@@ -47,6 +47,9 @@ The App has following features:
    [![Video running](https://s15.postimg.cc/q6dfk5hu3/Screenshot_20180629-074351.png)](https://postimg.cc/image/wwtwtl4zr/)
    [![Carousel Displayed](https://s15.postimg.cc/a84pu2dcb/Screenshot_20180629-074401.png)](https://postimg.cc/image/5yzzrwa2v/)
    [![Full screen video closed](https://s15.postimg.cc/bn6aism57/Screenshot_20180629-074410.png)](https://postimg.cc/image/wk2ingk5z/)
-
+   
+# Video
+   [![App Video](https://raw.githubusercontent.com/boygaggoo/VideoPlayerWithTeams/master/video/20180629_012858.mp4?token=AChzkagJQGwfkg5wU90vlWS6zuU9ck-hks5bPubIwA%3D%3D)](https://github.com/boygaggoo/VideoPlayerWithTeams/blob/master/video/20180629_012858.mp4)
+ 
 # Contact
 - ##### email (zioagaggoo@gmail.com)
